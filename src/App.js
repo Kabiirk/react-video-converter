@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+// ffmpeg guide : https://ffmpegwasm.netlify.app/
 import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
-const ffmpeg = createFFmpeg({
-  corePath: 'https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js',
-   log: true });
+const ffmpeg = createFFmpeg({ log: true });
 
 function App() {
   const [ready, setReady] = useState(false);
   const [video, setVideo] = useState();
   const [gif, setGif] = useState();
 
-  const load = async () => {
-    await ffmpeg.load();
+  // const load = async () => {
+  //   await ffmpeg.load();
+  //   setReady(true);
+  // }
+
+  const load = () => {
+   ffmpeg.load();
     setReady(true);
   }
 
@@ -44,7 +48,7 @@ function App() {
         src={URL.createObjectURL(video)}>
 
       </video>}
-
+      <br></br>
 
       <input type="file" onChange={(e) => setVideo(e.target.files?.item(0))} />
 
